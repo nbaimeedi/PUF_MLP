@@ -72,13 +72,13 @@ def train_model(X_train, y_train, X_test, y_test, epochs=50, lr=0.001):
         })
 
         # Save predictions
-        df_out.to_csv("predictions.csv", index=False)
+        df_out.to_csv("predictions_train_set.csv", index=False)
 
         # Append final accuracy at the bottom
-        with open("predictions.csv", "a") as f:
+        with open("predictions_train_set.csv", "a") as f:
             f.write(f"\n,,Final Accuracy: {test_accuracies[-1]:.2f}%\n")
 
-        print("\nSaved predictions to predictions.csv")
+        print("\nSaved predictions to predictions_train_set.csv")
         print(f"Final Test Accuracy: {test_accuracies[-1]:.2f}%")
 
     # Plot accuracy vs epoch
@@ -94,7 +94,7 @@ def train_model(X_train, y_train, X_test, y_test, epochs=50, lr=0.001):
 if __name__ == "__main__":
     # Load data
     X_train, y_train = load_dataset("train_set.csv")
-    X_test, y_test = load_dataset("test_set_1.csv")  # Change to test_set_2.csv etc. if needed
+    X_test, y_test = load_dataset("train_set.csv")  # Change to test_set_2.csv etc. if needed
 
     # Train model
     train_model(X_train, y_train, X_test, y_test, epochs=50, lr=0.001)
