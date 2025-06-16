@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Set manual seed for reproducibility (optional)
+# Set random seed for reproducibility
 torch.manual_seed(42)
 
 # Define MLP model
@@ -71,11 +71,17 @@ def train_model(X_train, y_train, X_test, y_test, epochs=50, lr=0.001):
             'Match Status': matched_text
         })
 
+        # Save predictions
         df_out.to_csv("predictions.csv", index=False)
+
+        # Append final accuracy at the bottom
+        with open("predictions.csv", "a") as f:
+            f.write(f"\n,,Final Accuracy: {test_accuracies[-1]:.2f}%\n")
+
         print("\nSaved predictions to predictions.csv")
         print(f"Final Test Accuracy: {test_accuracies[-1]:.2f}%")
 
-    # Plot accuracy
+    # Plot accuracy vs epoch
     plt.plot(range(1, epochs + 1), test_accuracies, marker='o')
     plt.xlabel("Epoch")
     plt.ylabel("Test Accuracy (%)")
@@ -86,9 +92,9 @@ def train_model(X_train, y_train, X_test, y_test, epochs=50, lr=0.001):
 
 # Main execution
 if __name__ == "__main__":
-    # Load training and test data
+    # Load data
     X_train, y_train = load_dataset("train_set.csv")
-    X_test, y_test = load_dataset("test_set_1.csv")  # or test_set_2.csv etc.
+    X_test, y_test = load_dataset("test_set_1.csv")  # Change to test_set_2.csv etc. if needed
 
-    # Train and evaluate
+    # Train model
     train_model(X_train, y_train, X_test, y_test, epochs=50, lr=0.001)
