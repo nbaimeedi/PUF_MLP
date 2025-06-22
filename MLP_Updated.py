@@ -32,7 +32,7 @@ def load_dataset(file_path):
     return torch.tensor(X), torch.tensor(y)
 
 # Train and evaluate model
-def train_model(X_train, y_train, X_test, y_test, epochs=50, lr=0.001):
+def train_model(X_train, y_train, X_test, y_test, epochs=200, lr=0.01):
     model = MLP()
     criterion = nn.BCELoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
@@ -87,7 +87,7 @@ def train_model(X_train, y_train, X_test, y_test, epochs=50, lr=0.001):
     plt.ylabel("Test Accuracy (%)")
     plt.title("Accuracy vs Epoch")
     plt.grid(True)
-    plt.savefig("accuracy_plot.png")
+    plt.savefig("train_set_plot.png")
     plt.show()
 
 # Main execution
@@ -97,4 +97,4 @@ if __name__ == "__main__":
     X_test, y_test = load_dataset("train_set.csv")  # Change to test_set_2.csv etc. if needed
 
     # Train model
-    train_model(X_train, y_train, X_test, y_test, epochs=50, lr=0.001)
+    train_model(X_train, y_train, X_test, y_test, epochs=200, lr=0.01)
